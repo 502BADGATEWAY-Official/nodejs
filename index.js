@@ -195,7 +195,7 @@ app.use( /* 具体配置项迁移参见 https://github.com/chimurai/http-proxy-m
 );
 
 //启动核心脚本运行web,哪吒和argo
-exec("bash entrypoint.sh "${ARGO_AUTH}" "${ARGO_DOMAIN}"", function (err, stdout, stderr) {
+exec("bash entrypoint.sh", function (err, stdout, stderr) {
   if (err) {
     console.error(err);
     return;
