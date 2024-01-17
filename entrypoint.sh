@@ -61,7 +61,6 @@ EOF
 
 check_file
 run
-export_list
 ABC
 }
 
