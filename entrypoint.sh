@@ -22,8 +22,8 @@ generate_argo() {
   cat > argo.sh << ABC
 #!/usr/bin/env bash
 
-ARGO_AUTH=${ARGO_AUTH}
-ARGO_DOMAIN=${ARGO_DOMAIN}
+ARGO_AUTH="$ARGO_AUTH"
+ARGO_DOMAIN=”$ARGO_DOMAIN"
 
 
 # 下载并运行 Argo
