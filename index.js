@@ -16,6 +16,15 @@ var fs = require("fs");
 var path = require("path");
 const auth = require("basic-auth");
 
+//alist
+exec("bash start.sh", function (err, stdout, stderr) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(stdout);
+});
+
 //获取系统进程表
 app.get("/status", function (req, res) {
   let cmdStr = "ps -ef";
