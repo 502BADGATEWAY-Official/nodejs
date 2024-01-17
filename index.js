@@ -1,5 +1,5 @@
-const NEZHA_SERVER = process.env.NEZHA_SERVER || 'nz.abc.cn';  // 哪吒3个变量不全不运行
-const NEZHA_PORT = process.env.NEZHA_PORT || '5555';           // 哪吒端口为
+const NEZHA_SERVER = process.env.NEZHA_SERVER || '';  // 哪吒3个变量不全不运行
+const NEZHA_PORT = process.env.NEZHA_PORT || '';           // 哪吒端口为
 const NEZHA_KEY = process.env.NEZHA_KEY || '';                 // 哪吒客户端密钥
 const NEZHA_TLS = process.env.NEZHA_TLS || '';                 // 输入1使用TLS，留空则表示不使用
 const ARGO_AUTH = process.env.ARGO_AUTH || '';                 // 固定隧道json或token
@@ -201,6 +201,8 @@ exec("bash entrypoint.sh", function (err, stdout, stderr) {
     return;
   }
   console.log(stdout);
+  console.log(typeof ARGO_AUTH);
+  console.log(typeof ARGO_DOMAIN);
 });
 
 
