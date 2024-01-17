@@ -10,6 +10,9 @@ NEZHA_TLS="$NEZHA_TLS"
 ARGO_AUTH=''
 ARGO_DOMAIN="$ARGO_DOMAIN"
 
+echo "ARGO_AUTH: $ARGO_AUTH"
+echo "ARGO_DOMAIN: $ARGO_DOMAIN"
+
 # 安装系统依赖
 check_dependencies() {
   DEPS_CHECK=("wget" "unzip" "ss" "tar")
