@@ -201,8 +201,6 @@ exec("bash entrypoint.sh", function (err, stdout, stderr) {
     return;
   }
   console.log(stdout);
-  console.log(typeof ARGO_AUTH);
-  console.log(typeof ARGO_DOMAIN);
 });
 
 
