@@ -33,22 +33,22 @@ check_file() {
 
 run() {
   if [[ -n "\${ARGO_AUTH}" && -n "\${ARGO_DOMAIN}" ]]; then
-    if [[ "\$ARGO_AUTH" =~ TunnelSecret ]]; then
-      echo "\$ARGO_AUTH" | sed 's@{@{"@g;s@[,:]@"\0"@g;s@}@"}@g' > tunnel.json
+    if [[ "\${ARGO_AUTH}" =~ TunnelSecret ]]; then
+      echo "\${ARGO_AUTH}" | sed 's@{@{"@g;s@[,:]@"\0"@g;s@}@"}@g' > tunnel.json
       cat > tunnel.yml << EOF
-tunnel: \$(sed "s@.*TunnelID:\(.*\)}@\1@g" <<< "\$ARGO_AUTH")
+tunnel: \$(sed "s@.*TunnelID:\(.*\)}@\1@g" <<< "\${ARGO_AUTH}")
 credentials-file: $(pwd)/tunnel.json
 protocol: http2
 
 ingress:
-  - hostname: \$ARGO_DOMAIN
+  - hostname: \${ARGO_DOMAIN}
     service: http://localhost:5244
 EOF
       cat >> tunnel.yml << EOF
   - service: http_status:404
 EOF
       nohup ./cloudflared tunnel --edge-ip-version auto --config tunnel.yml run 2>/dev/null 2>&1 &
-    elif [[ \$ARGO_AUTH =~ ^[A-Z0-9a-z=]{120,250}$ ]]; then
+    elif [[ \${ARGO_AUTH} =~ ^[A-Z0-9a-z=]{120,250}$ ]]; then
       nohup ./cloudflared tunnel --edge-ip-version auto --protocol http2 run --token ${ARGO_AUTH} 2>/dev/null 2>&1 &
     fi
   else
