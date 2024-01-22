@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 设置各变量，WS 路径前缀。(注意:伪装路径不需要 / 符号开始,为避免不必要的麻烦,请不要使用特殊符号.)
+# 设置各变量
 WEB_USERNAME=${WEB_USERNAME:-'admin'}
 WEB_PASSWORD=${WEB_PASSWORD:-'password'}
 
@@ -30,13 +30,6 @@ generate_alist() {
   cat > alist.sh << EOF
 #!/usr/bin/env bash
 
-# 哪吒的4个参数
-NEZHA_SERVER="$NEZHA_SERVER"
-NEZHA_PORT="$NEZHA_PORT"
-NEZHA_KEY="$NEZHA_KEY"
-NEZHA_TLS="$NEZHA_TLS"
-
-
 # 下载最新版本 alist
 download_alist() {
   if [ ! -e alist ]; then
@@ -57,8 +50,39 @@ run
 EOF
 }
 
+generate_aria2() {
+  cat > aria2.sh << EOF
+#!/usr/bin/env bash
 
+# 下载最新版本 aria2
+download_aria2() {
+  if [ ! -e alist ]; then
+    URL=\$(wget -qO- -4 "https://api.github.com/repos/P3TERX/Aria2-Pro-Core/releases/latest" | grep -o "https.*static-linux-amd64.tar.gz")
+    URL=\${URL:-https://github.com/P3TERX/Aria2-Pro-Core/releases/download/1.36.0_2021.08.22/aria2-1.36.0-static-linux-amd64.tar.gz}
+    wget -t 2 -T 10 -N \${URL}
+    tar -zxvf aria2-1.36.0-static-linux-amd64.tar.gz -C /usr/bin && rm -f aria2-1.36.0-static-linux-amd64.tar.gz
+  fi
+}
 
+# 配置文件处理
+aria2_config() {
+sh /tracker.sh /aria2.conf
+EXEC=$(head /dev/urandom | md5sum | cut -c 1-8)
+ln -sf /aria2.conf /tmp/${EXEC}.conf
+ln -sf /usr/bin/aria2c /usr/bin/${EXEC}
+touch /aria2.session
+}
+
+# 运行客户端
+run() {
+  exec ${EXEC} --conf-path="/tmp/${EXEC}.conf"
+}
+
+download_aria2
+aria2_config
+run
+EOF
+}
 
 generate_argo() {
   cat > argo.sh << ABC
