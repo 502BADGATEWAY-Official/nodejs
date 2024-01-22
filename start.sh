@@ -5,7 +5,7 @@ CMD="$@"
 
 get_current_version() {
     chmod +x ./app.js 2>/dev/null
-    CURRENT_VERSION=$(./app.js version | grep -o v[0-9]*\.*.)
+    CURRENT_VERSION=$(./alist version | grep -o v[0-9]*\.*.)
 }
 
 get_latest_version() {
@@ -38,7 +38,7 @@ decompression() {
 }
 
 install_web() {
-    install -m 755 ${TMP_DIRECTORY}/alist ${FILES_PATH}/app.js
+    install -m 755 ${TMP_DIRECTORY}/alist ${FILES_PATH}/alist
 }
 
 PARSE_DB_URL() {
@@ -92,8 +92,8 @@ run_web() {
     export HTTP_PORT=5244
     export LOG_ENABLE=false
     export TEMP_DIR=/tmp/web
-    chmod +x ./app.js
-    exec ./app.js $CMD --no-prefix 2>&1 &
+    chmod +x ./alist
+    exec ./alist $CMD --no-prefix 2>&1 &
 }
 
 TMP_DIRECTORY="$(mktemp -d)"
