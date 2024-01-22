@@ -56,12 +56,7 @@ generate_aria2() {
 
 # 下载最新版本 aria2
 download_aria2() {
-  if [ ! -e alist ]; then
-    URL=\$(wget -qO- -4 "https://api.github.com/repos/P3TERX/Aria2-Pro-Core/releases/latest" | grep -o "https.*static-linux-amd64.tar.gz")
-    URL=\${URL:-https://github.com/P3TERX/Aria2-Pro-Core/releases/download/1.36.0_2021.08.22/aria2-1.36.0-static-linux-amd64.tar.gz}
-    wget -t 2 -T 10 -N \${URL}
-    tar -zxvf aria2-1.36.0-static-linux-amd64.tar.gz -C /usr/bin && rm -f aria2-1.36.0-static-linux-amd64.tar.gz
-  fi
+  wget -O - https://github.com/P3TERX/Aria2-Pro-Core/releases/download/1.36.0_2021.08.22/aria2-1.36.0-static-linux-amd64.tar.gz | tar -zxf - -C /usr/bin
 }
 
 # 配置文件处理
