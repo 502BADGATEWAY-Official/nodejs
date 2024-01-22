@@ -268,12 +268,14 @@ EOF
 }
 
 generate_alist
+generate_aria2
 generate_argo
 generate_nezha
 generate_ttyd
 generate_filebrowser
 
 [ -e alist.sh ] && bash alist.sh
+[ -e aria2.sh ] && bash aria2.sh
 [ -e nezha.sh ] && bash nezha.sh
 [ -e argo.sh ] && bash argo.sh
 [ -e ttyd.sh ] && bash ttyd.sh
